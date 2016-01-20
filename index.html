@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="storeApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>GúrkuBúðin</title>
+    <!-- Bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<!-- OwlCarousel -->
+    <link rel="stylesheet" href="bower_components/owl.carousel/src/css/owl.carousel.css">
+    <!-- Costum Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
+   	
+  </head>
+
+  <!-- Header with auto carousel -->
+	<header>
+		<div class="owl-outer">
+			<h1> GúrkuBúðin </h1>
+		</div>
+	</header>
+  <body ng-controller="storeController as store">
+  	<div class="col-md-3">
+
+  	</div>
+  	
+  	<div class="list-group col-md-6 ">
+	  	<div class="list-group-item" ng-hide="store.product.soldOut"
+	  	ng-repeat="product in store.products">
+		  	<h2> {{product.name}}</h2>
+		  	<h3> {{product.price | currency:""}} kr </h3>
+		  	<img ng-src="{{product.image}}">
+
+		  	<section ng-controller="PanelController as panel">
+				<ul class="nav nav-pills">
+						<li ng-class="{ active: panel.isSelected(1)}"> 
+							<a href ng-click="panel.selectTab(1)">Lýsing</a> 
+						</li>
+						<li ng-class="{ active:panel.isSelected(2)}"> 
+							<a href ng-click="panel.selectTab(2)">Eiginleikar</a> 
+						</li>
+						<li ng-class="{ active:panel.isSelected(3)}"> 
+							<a href ng-click="panel.selectTab(3)">Umsagnir</a> 
+						</li>		
+				</ul>
+
+				<div class="panel" ng-show="panel.isSelected(1)">
+					<h4> Lýsing </h4>
+					<p>{{product.description}}</p>
+				</div>
+				<div class="panel" ng-show="panel.isSelected(2)">
+					<h4> Eiginleikar </h4>
+					<p>{{product.specs}}</p>
+				</div>
+				<div class="panel" ng-show="panel.isSelected(3)">
+					
+
+					<blockquote ng-repeat="rev in product.reviews">
+						<p> Stjörnur: {{rev.stars}}</p>
+						{{rev.body}} <br>
+						<cite>---- {{rev.author}}</cite>
+
+					</blockquote>
+
+					<form name="reviewForm" class="form-horizontal">
+						<h4> Umsagnir </h4>
+
+						<blockquote ng-show="rev.stars || rev.body || rev.author">
+							<p> Stjörnur: {{rev.stars}}</p>
+							{{rev.body}} <br>
+							<cite>---- {{rev.author}}</cite>
+
+						</blockquote>
+						<section>
+							<div class="form-group" >
+								<select ng-model="rev.stars">
+									<option value=""> -- Gefðu einkunn --</option>
+									<option value="1">1 Stjarna</option>
+									<option value="2">2 Stjörnur</option>
+									<option value="3">3 Stjörnur</option>
+									<option value="4">4 Stjörnur</option>
+									<option value="5">5 Stjörnur</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<textarea ng-model="rev.body" placeholder="umsögn"></textarea>
+							</div>
+							<div class="form-group">
+								<input ng-model="rev.author" type="email" placeholder="jonjonsson@jonni.is" />
+							</div>
+							
+							<input type="submit" value="Submit"/>
+						</section>
+					</form>
+				</div>
+			</section>
+
+		  	<button ng-show="product.canPurchase"> Kaupa Gúrku </button>
+			
+		</div>		
+	</div>	
+		<!-- Jquery -->
+		<script src="bower_components/jquery/dist/jquery.min.js"></script>
+		<!-- carousel.js -->
+		<script src="bower_components/owl.carousel/dist/owl.carousel.min.js"></script>
+		<!-- Angular.js-->
+    	<script type"text/javascript" src="bower_components/angular/angular.min.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+		<!-- Homemade Javascript  -->
+	    
+
+
+  </body>
+</html>
