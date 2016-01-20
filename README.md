@@ -8,13 +8,7 @@ Start with
 1. Open command line inside the root folder. 
 2. npm install 
 3. bower install 
-4. the just write gulp.
-..* The gulp file will run default tasks, browser-sync, sass and jshint.
+4. the just write gulp. (The gulp file will run default tasks, browser-sync, sass and jshint.)
 
 
-1. First ordered list item
-2. Another item
-⋅⋅* Unordered sub-list. 
-1. Actual numbers don't matter, just that it's a number
-⋅⋅1. Ordered sub-list
-4. And another item.
+
